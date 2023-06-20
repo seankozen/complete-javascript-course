@@ -103,7 +103,7 @@ btnScrollTo.addEventListener('click', e => {
   const s1coords = section1.getBoundingClientRect();
   console.log(s1coords);
   console.log(e.target.getBoundingClientRect());
-  console.log('Current scroll (X/Y):', window.pageXOffset, pageYOffset);
+  console.log('Current scroll (X/Y):', window.scrollX, scrollY);
   console.log(
     'height/width of viewport:',
     document.documentElement.clientHeight,
@@ -111,7 +111,31 @@ btnScrollTo.addEventListener('click', e => {
   );
 
   //Scrolling
-  window.scrollTo(s1coords.left, s1coords.top);  
+  //Top needs to be relative to top of whole page
+  // window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);  
 
+  // window.scrollTo({
+  //   left: s1coords.left + window.scrollX,
+  //   top: s1coords.top + window.scrollY,
+  //   behavior: 'smooth',
+  // })
 
+  //Modern method
+  section1.scrollIntoView({behavior: 'smooth',});
 });
+
+const h1 = document.querySelector('h1');
+
+const alertH1 = function (e) {
+  alert('addEventListener: You are reading the heading!');
+
+  //remove event listener
+  h1.removeEventListener('mouseenter', alertH1)
+}
+
+h1.addEventListener('mouseenter', alertH1);
+
+//Older way to add event listeners
+h1.onmouseenter = (e) => {
+  alert('onmouseenter: You are reading the heading!');
+};
