@@ -8,6 +8,9 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
 const openModal = function (e) {
   e.preventDefault();
   modal.classList.remove('hidden');
@@ -30,6 +33,45 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+////////////////////////////////////
+//Button scrolling
+btnScrollTo.addEventListener('click', e => {
+  const s1coords = section1.getBoundingClientRect();
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+////////////////////////////////////
+//Page navigation
+//Add to common parent element
+document.querySelector('.nav__links')
+  .addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains('nav__link')) {
+      const id = e.target.getAttribute('href');
+      document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 ////////////////////////////////////
 ////////////////////////////////////
 
@@ -96,46 +138,73 @@ document.addEventListener('keydown', function (e) {
 // //Don't use...will erase all other classes
 // logo.className = 'sean';
 
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
+// const btnScrollTo = document.querySelector('.btn--scroll-to');
+// const section1 = document.querySelector('#section--1');
 
-btnScrollTo.addEventListener('click', e => {
-  const s1coords = section1.getBoundingClientRect();
-  console.log(s1coords);
-  console.log(e.target.getBoundingClientRect());
-  console.log('Current scroll (X/Y):', window.scrollX, scrollY);
-  console.log(
-    'height/width of viewport:',
-    document.documentElement.clientHeight,
-    document.documentElement.clientWidth
-  );
+// btnScrollTo.addEventListener('click', e => {
+//   const s1coords = section1.getBoundingClientRect();
+//   console.log(s1coords);
+//   console.log(e.target.getBoundingClientRect());
+//   console.log('Current scroll (X/Y):', window.scrollX, scrollY);
+//   console.log(
+//     'height/width of viewport:',
+//     document.documentElement.clientHeight,
+//     document.documentElement.clientWidth
+//   );
 
-  //Scrolling
-  //Top needs to be relative to top of whole page
-  // window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);  
+//   Scrolling
+//   Top needs to be relative to top of whole page
+//   window.scrollTo(s1coords.left + window.scrollX, s1coords.top + window.scrollY);
 
-  // window.scrollTo({
-  //   left: s1coords.left + window.scrollX,
-  //   top: s1coords.top + window.scrollY,
-  //   behavior: 'smooth',
-  // })
+//   window.scrollTo({
+//     left: s1coords.left + window.scrollX,
+//     top: s1coords.top + window.scrollY,
+//     behavior: 'smooth',
+//   })
 
-  //Modern method
-  section1.scrollIntoView({behavior: 'smooth',});
-});
+//   Modern method
+//   section1.scrollIntoView({ behavior: 'smooth' });
+// });
 
-const h1 = document.querySelector('h1');
+// const h1 = document.querySelector('h1');
 
-const alertH1 = function (e) {
-  alert('addEventListener: You are reading the heading!');
+// const alertH1 = function (e) {
+//   alert('addEventListener: You are reading the heading!');
 
-  //remove event listener
-  h1.removeEventListener('mouseenter', alertH1)
-}
+//   //remove event listener
+//   h1.removeEventListener('mouseenter', alertH1);
+// };
 
-h1.addEventListener('mouseenter', alertH1);
+// h1.addEventListener('mouseenter', alertH1);
 
-//Older way to add event listeners
-h1.onmouseenter = (e) => {
-  alert('onmouseenter: You are reading the heading!');
-};
+// //Older way to add event listeners
+// h1.onmouseenter = e => {
+//   alert('onmouseenter: You are reading the heading!');
+// };
+
+// //Event propogation
+// //rgb(255,255,255)
+// const randomInt = (min, max) =>
+//   Math.floor(Math.random() * (max - min + 1) + min);
+// const randomColor = () => `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`;
+// console.log(randomColor());
+
+// document.querySelector('.nav__link').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('LINK', e.target, e.currentTarget);
+//   console.log(e.currentTarget === this);
+
+//   //Stop propogation (Usually not a good thing to do)
+//   // e.stopPropagation();
+
+// });
+
+// document.querySelector('.nav__links').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('CONTAINER', e.target,e.currentTarget);
+// });
+
+// document.querySelector('.nav').addEventListener('click', function (e) {
+//   this.style.backgroundColor = randomColor();
+//   console.log('NAV', e.target,e.currentTarget);
+// });
