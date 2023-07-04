@@ -11,6 +11,7 @@ const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 const nav = document.querySelector('.nav');
+const header = document.querySelector('.header');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -110,22 +111,41 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 //Intersection Observer API
 // When section1 intersects the viewport at 10%, below function will get called
-const obsCallBack = function (entries, observer) {
-  entries.forEach(entry => {
-    console.log(entry);
-  });
+// const obsCallBack = function (entries, observer) {
+//   entries.forEach(entry => {
+//     console.log(entry);
+//   });
+// };
+
+// const obsOptions = {
+//   root: null,
+//   threshold: [0, 0.2] //visible percentage in viewport
+
+// };
+
+// const observer = new IntersectionObserver(obsCallBack, obsOptions);
+// observer.observe(section1);
+
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight);
+
+
+const stickyNav = function(entries) {
+  const [entry] = entries;
+  
+  console.log(entry);
+
+  if(!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
 };
 
-const obsOptions = {
+const headerObserver = new IntersectionObserver(stickyNav, {
   root: null,
-  threshold: [0, 0.2] //visible percentage in viewport
+  threshold: 0,
+  rootMargin: `-${navHeight}px`, //Specifies when menubar will appear
+});
 
-};
-
-const observer = new IntersectionObserver(obsCallBack, obsOptions);
-observer.observe(section1);
-
-
+headerObserver.observe(header);
 
 
 
