@@ -328,42 +328,105 @@ console.log(jay);
 //Encapsulation: Protected Properties and Methods
 //Protected Properties and Methods
 
+// class Account {
+//   constructor(owner, currency, pin) {
+//     this.owner = owner;
+//     this.currency = currency;
+//     this._pin = pin;
+//     this._movements = []; //Add underscore to protect it (not truely private)
+//     this.locale = navigator.language;
+
+//     console.log(`Thanks for opening an account, ${owner}.`);
+//   }
+
+//   //Public interface
+//   getMovements() {
+//     return this._movements;
+//   }
+
+
+
+//   deposit(val) {
+//     this._movements.push(val);
+//   }
+
+//   withdraw(val) {
+//     this.deposit(-val);
+//   }
+
+//   _approveLoan(val) {
+//     return true;
+//   }
+
+//   requestLoan(val) {
+//     if(this._approveLoan(val)) {
+//       this.deposit(val);
+//       console.log("Loan approved!");
+//     }
+//   }
+
+// }
+
+// const acc1 = new Account('Sean', 'USD', 1234);
+// acc1.deposit(1000);
+// acc1.withdraw(150);
+// acc1.requestLoan(1234);
+// console.log(acc1.getMovements());
+// console.log(acc1);
+
+//Private class fields and methods
+//1) Public fields
+//2) Private fields
+//3) Public methods
+//4) Private methods
+//There are also static versions
+
+
+
 class Account {
+  //1) Public fiels (instances)
+  locale = navigator.language;
+  
+
+  //2) Private fields (instances)
+  #movements = [];
+  #pin;
+
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    this._pin = pin;
-    this._movements = []; //Add underscore to protect it (not truely private)
-    this.locale = navigator.language;
-
+    this.#pin = pin;
+  
     console.log(`Thanks for opening an account, ${owner}.`);
   }
 
+  //3) Public methods
   //Public interface
   getMovements() {
-    return this._movements;
+    return this.#movements;
   }
 
-
-
   deposit(val) {
-    this._movements.push(val);
+    this.#movements.push(val);
   }
 
   withdraw(val) {
     this.deposit(-val);
   }
 
-  _approveLoan(val) {
-    return true;
-  }
-
   requestLoan(val) {
+    //if(this.#approveLoan(val)) {
     if(this._approveLoan(val)) {
       this.deposit(val);
       console.log("Loan approved!");
     }
   }
+  //4) Private methods
+  //#approveLoan(val) {
+  _approveLoan(val) {
+    return true;
+  }
+
 
 }
 
@@ -371,10 +434,7 @@ const acc1 = new Account('Sean', 'USD', 1234);
 acc1.deposit(1000);
 acc1.withdraw(150);
 acc1.requestLoan(1234);
-console.log(acc1.getMovements());
 console.log(acc1);
 
-
-
-
-
+//console.log(acc1.#movements); cannot access #movements outside class
+console.log(acc1.getMovements());
