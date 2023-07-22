@@ -56,20 +56,19 @@ console.log(array.__proto__);
 // § Data car 2: 'Mercedes' going at 95 km/h
 // GOOD LUCK 😀
 
-const Car = function(make, speed) {
-    this.make = make;
-    this.speed = speed;
-
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
 };
 
-Car.prototype.accelerate = function() {
-    this.speed += 10;
-    console.log(`${this.make} is going at ${this.speed}km/h`);
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`${this.make} is going at ${this.speed}km/h`);
 };
 
-Car.prototype.brake = function() {
-    this.speed -= 5;
-    console.log(`${this.make} is going at ${this.speed}km/h`);
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.make} is going at ${this.speed}km/h`);
 };
 
 const bmw = new Car('BMW', 120);
@@ -80,8 +79,6 @@ const mercedes = new Car('Mercedes', 95);
 // //mercedes.brake();
 // mercedes.accelerate();
 
-
-
 //******ES6 Classes******
 
 //class expression
@@ -89,16 +86,16 @@ const mercedes = new Car('Mercedes', 95);
 
 // class declaration
 class PersonCl {
-  constructor(fullName, birthYear){
+  constructor(fullName, birthYear) {
     this.fullName = fullName;
     this.birthYear = birthYear;
-  };
+  }
   // Methods will be added to the .prototype property
   calcAge() {
     console.log(2037 - this.birthYear);
   }
 
-  greet(){
+  greet() {
     console.log(`Hey ${this.firstName}!`);
   }
 
@@ -108,7 +105,7 @@ class PersonCl {
 
   //Set a property that already exists
   set fullName(name) {
-    if(name.includes(' ')) this._fullName = name;
+    if (name.includes(' ')) this._fullName = name;
     else alert(`${name} is not a full name!`);
   }
 
@@ -121,8 +118,7 @@ class PersonCl {
     console.log('Hey there 👋');
     console.log(this);
   }
-
-};
+}
 
 const george = new PersonCl('George Kozen', 1925);
 //const walter = new PersonCl('Walter', 1945);
@@ -144,7 +140,7 @@ const account = {
   },
 
   set latest(mov) {
-    this.movements. push(mov);
+    this.movements.push(mov);
   },
 };
 
@@ -156,7 +152,7 @@ console.log(account.movements);
 console.log(george.age);
 
 //Static methods
-Person.hey = function() {
+Person.hey = function () {
   console.log('Hey there 👋');
 };
 
@@ -200,7 +196,7 @@ steven.calcAge();
 //     this.speed += 10;
 //     console.log(`${this.make} is going at ${this.speed}km/h`);
 //     }
-    
+
 //   brake() {
 //     this.speed -= 5;
 //     console.log(`${this.make} is going at ${this.speed}km/h`);
@@ -224,7 +220,6 @@ steven.calcAge();
 
 // // Linking prototypes
 // Student.prototype = Object.create(Person.prototype);
-
 
 // Student.prototype.introduce = function() {
 //   console.log(`My name is ${this.firstName} and I study ${this.course}.`)
@@ -255,7 +250,7 @@ steven.calcAge();
 // § Data car 1: 'Tesla' going at 120 km/h, with a charge of 23%
 // GOOD LUCK 😀
 
-const EV = function(make, speed, charge) {
+const EV = function (make, speed, charge) {
   Car.call(this, make, speed);
   this.charge = charge;
 };
@@ -263,18 +258,19 @@ const EV = function(make, speed, charge) {
 //Link prototypes
 EV.prototype = Object.create(Car.prototype);
 
-EV.prototype.chargeBattery = function(chargeTo) {
+EV.prototype.chargeBattery = function (chargeTo) {
   this.charge = chargeTo;
 };
 
 EV.prototype.constructor = EV;
 
-EV.prototype.accelerate = function() {
+EV.prototype.accelerate = function () {
   this.speed += 20;
   this.charge--;
-  console.log(`${this.make} going at ${this.speed}km/h, with a charge of ${this.charge}%.`);
+  console.log(
+    `${this.make} going at ${this.speed}km/h, with a charge of ${this.charge}%.`
+  );
 };
-
 
 const tesla = new EV('Tesla', 50, '70');
 tesla.accelerate();
@@ -292,12 +288,18 @@ class StudentCl extends PersonCl {
     this.course = course;
   }
 
-  introduce () {
+  introduce() {
     console.log(`My name is ${this.fullName} and I study ${this.course}.`);
   }
 
   calcAge() {
-    console.log(`I'm ${2037 - this.birthYear} years old, but as a student I feel more like ${2037 - this.birthYear + 10}`)
+    console.log(
+      `I'm ${
+        2037 - this.birthYear
+      } years old, but as a student I feel more like ${
+        2037 - this.birthYear + 10
+      }`
+    );
   }
 }
 
@@ -315,9 +317,9 @@ StudentProto.init = function (firstName, birthYear, course) {
   this.course = course;
 };
 
-StudentProto.introduce =   function() {
+StudentProto.introduce = function () {
   console.log(`My name is ${this.firstName} and I study ${this.course}.`);
-}
+};
 
 const jay = Object.create(StudentProto);
 jay.init('Jay', 1985, 'Computer Science');
@@ -343,8 +345,6 @@ console.log(jay);
 //   getMovements() {
 //     return this._movements;
 //   }
-
-
 
 //   deposit(val) {
 //     this._movements.push(val);
@@ -381,12 +381,9 @@ console.log(jay);
 //4) Private methods
 //There are also static versions
 
-
-
 class Account {
   //1) Public fiels (instances)
   locale = navigator.language;
-  
 
   //2) Private fields (instances)
   #movements = [];
@@ -396,7 +393,7 @@ class Account {
     this.owner = owner;
     this.currency = currency;
     this.#pin = pin;
-  
+
     console.log(`Thanks for opening an account, ${owner}.`);
   }
 
@@ -418,9 +415,9 @@ class Account {
 
   requestLoan(val) {
     //if(this.#approveLoan(val)) {
-    if(this._approveLoan(val)) {
+    if (this._approveLoan(val)) {
       this.deposit(val);
-      console.log("Loan approved!");
+      console.log('Loan approved!');
       return this;
     }
   }
@@ -429,8 +426,6 @@ class Account {
   _approveLoan(val) {
     return true;
   }
-
-
 }
 
 const acc1 = new Account('Sean', 'USD', 1234);
