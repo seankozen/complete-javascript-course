@@ -408,10 +408,12 @@ class Account {
 
   deposit(val) {
     this.#movements.push(val);
+    return this;
   }
 
   withdraw(val) {
     this.deposit(-val);
+    return this;
   }
 
   requestLoan(val) {
@@ -419,6 +421,7 @@ class Account {
     if(this._approveLoan(val)) {
       this.deposit(val);
       console.log("Loan approved!");
+      return this;
     }
   }
   //4) Private methods
@@ -438,3 +441,7 @@ console.log(acc1);
 
 //console.log(acc1.#movements); cannot access #movements outside class
 console.log(acc1.getMovements());
+
+//Chaining (add return this; to method)
+acc1.deposit(300).deposit(500).withdraw(300).requestLoan(2500).withdraw(400);
+console.log(acc1);
