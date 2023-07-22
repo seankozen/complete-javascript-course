@@ -332,7 +332,7 @@ class Account {
   constructor(owner, currency, pin) {
     this.owner = owner;
     this.currency = currency;
-    this.pin = pin;
+    this._pin = pin;
     this._movements = []; //Add underscore to protect it (not truely private)
     this.locale = navigator.language;
 
@@ -354,12 +354,12 @@ class Account {
     this.deposit(-val);
   }
 
-  approveLoan(val) {
+  _approveLoan(val) {
     return true;
   }
 
   requestLoan(val) {
-    if(this.approveLoan(val)) {
+    if(this._approveLoan(val)) {
       this.deposit(val);
       console.log("Loan approved!");
     }
